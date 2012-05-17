@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:id="@+id/scroll"
+		    android:layout_width="fill_parent"
+		    android:layout_height="match_parent" android:isScrollContainer="true" android:fillViewport="true" android:layout_margin="10dp">
+   
+     <LinearLayout
+         xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@+id/advanced_layout"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:fitsSystemWindows="true"
+         android:orientation="vertical" >
+
+         <Switch
+             android:id="@+id/switchAd1"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:text="@string/custom_svs" />
+
+         <ImageView
+             android:id="@+id/ImageView02"
+             android:layout_width="match_parent"
+             android:layout_height="0.5dp"
+             android:layout_marginBottom="10dp"
+             android:layout_marginTop="10dp"
+             android:background="#666666"
+             android:clickable="true" android:contentDescription="@string/separator"/>
+
+         <TableLayout
+             android:id="@+id/TableLayout01"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="10dp"
+             android:stretchColumns="0" >
+         </TableLayout>
+
+         <ImageView
+             android:id="@+id/ImageView01"
+             android:layout_width="match_parent"
+             android:layout_height="0.5dp"
+             android:layout_marginBottom="10dp"
+             android:layout_marginTop="10dp"
+             android:background="#666666"
+             android:clickable="true" android:contentDescription="@string/separator"/>
+
+         <TableLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:stretchColumns="0"
+             android:layout_gravity="center" android:gravity="center">
+
+             <TableRow
+                 android:id="@+id/tableRow1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center" >
+
+                 <Button
+                     android:id="@+id/button2"
+                     android:layout_gravity="fill_horizontal"
+                     android:text="@string/suggested_vdd" />
+
+                 <Button
+                     android:id="@+id/button3"
+                     android:layout_gravity="fill_horizontal"
+                     android:text="@string/default_vdd" />
+
+             </TableRow>
+
+             <ImageView
+                 android:id="@+id/ImageView03"
+                 android:layout_width="match_parent"
+                 android:layout_height="0.5dp"
+                 android:layout_marginBottom="10dp"
+                 android:layout_marginTop="10dp"
+                 android:background="#666666"
+                 android:clickable="true" android:contentDescription="@string/separator"/>
+
+             <TableRow
+                 android:id="@+id/tableRow2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" >
+
+                 <CheckBox
+                     android:id="@+id/checkBox1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/set_on_boot" />
+
+                 <Button
+                     android:id="@+id/button1"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="@string/apply" />
+             </TableRow>
+         </TableLayout>
+
+         <ImageView
+             android:id="@+id/ImageView04"
+             android:layout_width="match_parent"
+             android:layout_height="0.5dp"
+             android:layout_marginBottom="10dp"
+             android:layout_marginTop="10dp"
+             android:background="#666666"
+             android:clickable="true" android:contentDescription="@string/separator"/>
+     </LinearLayout>
+	
+    </ScrollView>	    

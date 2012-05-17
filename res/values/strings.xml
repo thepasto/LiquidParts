@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, LiquidPartsActivity!</string>
+    <string name="app_name">LiquidParts</string>
+    <string name="svs">Customized SVS</string>
+    <string name="suggested_vdd">Set Suggested</string>
+    <string name="default_vdd">Reset Default</string>
+    <string name="set_on_boot">Set On Boot</string>
+    <string name="apply">Apply</string>
+    <string name="a2sd">A2sd</string>
+    <string name="ad2sd">Ad2sd</string>
+    <string name="dc2sd">Dc2sd</string>
+    <string name="xdata">Xdata</string>
+    <string name="format_ext">Format Ext</string>
+    <string name="sdreadhead">SdCard Readahead</string>
+    <string name="swap">Swap</string>
+    <string name="swappy">Swappiness</string>
+    <string name="separator">separator</string>
+    <string name="custom_svs">Customized SVS</string>
+    <string name="touchscreen">Touchscreen</string>
+    <string name="sens">Sensitivity</string>
+    <string name="noise">Noise</string>
+    <string name="softk">Softkeys</string>
+    <string name="hf">Haptick Feedback</string>
+    <string name="vibtime">Vibration Time</string>
+
+</resources>
