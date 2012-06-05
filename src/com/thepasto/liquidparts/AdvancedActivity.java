@@ -13,7 +13,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,7 +29,7 @@ public class AdvancedActivity extends Activity {
 	
 	public void readConf(){
 		SharedPreferences settingsAdvanced = getSharedPreferences("lpadvanced", Context.MODE_PRIVATE);
-		Switch swsvs = (Switch) this.findViewById(R.id.switchAd1);
+		CheckBox swsvs = (CheckBox) this.findViewById(R.id.CheckBoxAd1);
 		swsvs.setChecked(settingsAdvanced.getBoolean("svs", false));
 		TableLayout table = (TableLayout) findViewById(R.id.TableLayout01);
 		final CheckBox cbsob = (CheckBox) findViewById(R.id.checkBox1);
@@ -86,7 +85,7 @@ public class AdvancedActivity extends Activity {
 	        
 			@Override
 			public void onClick(View v) {
-				String[] suggestedVdd = {"900","925","975","1025","1200","1250","1300","1300","1300","1325","1425","1475","1525","1600","1600"};			
+				String[] suggestedVdd = {"925","925","975","1025","1200","1250","1300","1325","1350","1375","1400","1425","1500","1500","1500"};			
 				vddPicker(getFreqs(),suggestedVdd);
 			}
          });
@@ -103,7 +102,7 @@ public class AdvancedActivity extends Activity {
 
 	public void setConf(){
 		readConf();
-		Switch swsvs = (Switch) this.findViewById(R.id.switchAd1);
+		CheckBox swsvs = (CheckBox) this.findViewById(R.id.CheckBoxAd1);
 		swsvs.setOnCheckedChangeListener(new OnCheckedChangeListener()
 	    {
 	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
@@ -123,14 +122,14 @@ public class AdvancedActivity extends Activity {
 	
 	public String[] getFreqs(){
 		String freqs="";
-		freqs=BashCommand.doCmds("su","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $1}' | xargs echo -ne");
+		freqs=BashCommand.doCmds("sh","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $1}' | xargs echo -ne");
 		
 		return(freqs.replace("\n","").split(" "));
 	}
 	
 	public String[] getVdds(){
 		String vdds="";
-			vdds=BashCommand.doCmds("su","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $2}' | xargs echo -ne");
+			vdds=BashCommand.doCmds("sh","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $2}' | xargs echo -ne");
 		return(vdds.replace("\n","").split(" "));
 	}
 	

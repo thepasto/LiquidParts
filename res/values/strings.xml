@@ -24,5 +24,7 @@
     <string name="softk">Softkeys</string>
     <string name="hf">Haptick Feedback</string>
     <string name="vibtime">Vibration Time</string>
+    <string name="lowmem">LowMemoryKiller Fix
+        (Suggested on A1)</string>
 
 </resources>

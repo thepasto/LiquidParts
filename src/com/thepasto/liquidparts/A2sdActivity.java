@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
+import android.widget.CheckBox;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -88,8 +88,9 @@ public class A2sdActivity extends Activity{
 	public void swapInit(){
 		String sdswap="Not Found";
 		String swappi="";
+		System.out.println("SWAPINIT");
 		sdswap = BashCommand.doCmds("su","fdisk -l /dev/block/mmcblk0 | grep \"82 Linux swap\" | awk '{print $1}'").replaceAll ("\n", "");
-		swappi = BashCommand.doCmds("su","cat /proc/sys/vm/swappiness").replaceAll ("\n", "");
+		swappi = BashCommand.doCmds("sh","cat /proc/sys/vm/swappiness").replaceAll ("\n", "");
 		SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
 		SharedPreferences.Editor prefEditor = settingsA2sd.edit();
 		prefEditor.putString("sdswap", sdswap);
@@ -103,6 +104,7 @@ public class A2sdActivity extends Activity{
 		String dc2sd = "/sd-ext/.dc2sd";
 		String xdata = "/sd-ext/.xdata";
 		String ext4form = "/sd-ext/.ext4";
+		String lowmemset = "/data/local/userinit.d/04lowmem";
 		SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
 		SharedPreferences.Editor prefEditor = settingsA2sd.edit();
 		prefEditor.putBoolean("a2sd", checkSet(a2sd));
@@ -111,6 +113,7 @@ public class A2sdActivity extends Activity{
 		prefEditor.putBoolean("xdata", checkSet(xdata));
 		prefEditor.putBoolean("ext4", checkSet(ext4form));
 		prefEditor.putBoolean("swapen", swapSet(settingsA2sd.getString("sdswap", "Not Found")));
+		prefEditor.putBoolean("lowmem", checkSet(lowmemset));
 		prefEditor.commit();
 		
 	}
@@ -118,13 +121,14 @@ public class A2sdActivity extends Activity{
 	public void setConf(){
 		readConf();
 		SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
-		Switch swa2sd = (Switch) this.findViewById(R.id.switch1);
-		Switch swad2sd = (Switch) this.findViewById(R.id.switch2);
-		Switch swdc2sd = (Switch) this.findViewById(R.id.switch3);
-		Switch swxdata = (Switch) this.findViewById(R.id.switch4);
+		CheckBox swa2sd = (CheckBox) this.findViewById(R.id.CheckBox1);
+		CheckBox swad2sd = (CheckBox) this.findViewById(R.id.CheckBox2);
+		CheckBox swdc2sd = (CheckBox) this.findViewById(R.id.CheckBox3);
+		CheckBox swxdata = (CheckBox) this.findViewById(R.id.CheckBox4);
 		Button butformat = (Button) this.findViewById(R.id.button1);
-		Switch swswap = (Switch) this.findViewById(R.id.switch5);
+		CheckBox swswap = (CheckBox) this.findViewById(R.id.CheckBox5);
 		EditText etswappi = (EditText) this.findViewById(R.id.EditTextA2);
+		CheckBox swlowmem = (CheckBox) this.findViewById(R.id.CheckBox01);
 		swa2sd.setChecked(settingsA2sd.getBoolean("a2sd", false));
 		swad2sd.setChecked(settingsA2sd.getBoolean("ad2sd", false));
 		swdc2sd.setChecked(settingsA2sd.getBoolean("dc2sd", false));
@@ -278,6 +282,23 @@ public class A2sdActivity extends Activity{
 			
 			}
          });
+		
+		swlowmem.setOnCheckedChangeListener(new OnCheckedChangeListener()
+	    {
+	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	        {
+	        	if (isChecked) {
+	        		String line = "echo 2048,3072,5120,5632,5888,6400 > /sys/module/lowmemorykiller/parameters/minfree";
+	        		
+	        		BashCommand.doCmds("su",line+" && echo \"echo 2048,3072,5120,5632,5888,6400 > /sys/module/lowmemorykiller/parameters/minfree\" > /data/local/userinit.d/04lowmem && chmod 755 /data/local/userinit.d/04lowmem");
+                	} else {
+                		String line = "echo 2048,3072,4096,6144,7168,8192 > /sys/module/lowmemorykiller/parameters/minfree";
+                		BashCommand.doCmds("su",line+" && rm /data/local/userinit.d/04lowmem");
+                	}
+                	writeChanges();
+                	setConf();
+	        }
+	    });
 	}
 	
 	public boolean checkSet(String file){
@@ -288,7 +309,7 @@ public class A2sdActivity extends Activity{
 	
 	public boolean swapSet(String swap){
 		String swapen="";
-		swapen=BashCommand.doCmds("su","cat /proc/swaps | grep "+swap);
+		swapen=BashCommand.doCmds("sh","cat /proc/swaps | grep "+swap);
 		if (!swapen.equals("")){
 			return true;
 		}
@@ -297,7 +318,7 @@ public class A2sdActivity extends Activity{
 	
 	public String readaHead(){
 		String sdahead="";
-		sdahead = BashCommand.doCmds("su","cat /sys/block/mmcblk0/bdi/read_ahead_kb").replaceAll ("\n", "");
+		sdahead = BashCommand.doCmds("sh","cat /sys/block/mmcblk0/bdi/read_ahead_kb").replaceAll ("\n", "");
 		return sdahead;
 	}
 	
@@ -306,7 +327,7 @@ public class A2sdActivity extends Activity{
 		SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
     	String sw = settingsA2sd.getString("sdswap", "Not Found");
     	String sdreadahead = settingsA2sd.getString("sdahead", "1024"); 
-		if (((Switch)this.findViewById(R.id.switch5)).isChecked()){
+		if (((CheckBox)this.findViewById(R.id.CheckBox5)).isChecked()){
 			swcont+="swapon ";
 		}else {
 			swcont+="swapoff ";

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 
-@SuppressWarnings("deprecation")
 public class LiquidPartsActivity extends Activity {
 	
 	@Override
