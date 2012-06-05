@@ -123,14 +123,14 @@ public class AdvancedActivity extends Activity {
 	
 	public String[] getFreqs(){
 		String freqs="";
-		freqs=BashCommand.doCmds("su","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $1}' | xargs echo -ne");
+		freqs=BashCommand.doCmds("sh","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $1}' | xargs echo -ne");
 		
 		return(freqs.replace("\n","").split(" "));
 	}
 	
 	public String[] getVdds(){
 		String vdds="";
-			vdds=BashCommand.doCmds("su","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $2}' | xargs echo -ne");
+			vdds=BashCommand.doCmds("sh","cat /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels | awk -F': ' '{print $2}' | xargs echo -ne");
 		return(vdds.replace("\n","").split(" "));
 	}
 	

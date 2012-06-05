@@ -42,7 +42,7 @@ public class A2sdActivity extends Activity{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void init(){
 		String sdext="Not Found";
-		sdext = BashCommand.doCmds("su","fdisk -l /dev/block/mmcblk0 | grep \"83 Linux\" | awk '{print $1}'").replaceAll ("\n", "");
+		sdext = BashCommand.doCmds("sh","fdisk -l /dev/block/mmcblk0 | grep \"83 Linux\" | awk '{print $1}'").replaceAll ("\n", "");
 		
 		SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
 		SharedPreferences.Editor prefEditor = settingsA2sd.edit();
@@ -88,8 +88,8 @@ public class A2sdActivity extends Activity{
 	public void swapInit(){
 		String sdswap="Not Found";
 		String swappi="";
-		sdswap = BashCommand.doCmds("su","fdisk -l /dev/block/mmcblk0 | grep \"82 Linux swap\" | awk '{print $1}'").replaceAll ("\n", "");
-		swappi = BashCommand.doCmds("su","cat /proc/sys/vm/swappiness").replaceAll ("\n", "");
+		sdswap = BashCommand.doCmds("sh","fdisk -l /dev/block/mmcblk0 | grep \"82 Linux swap\" | awk '{print $1}'").replaceAll ("\n", "");
+		swappi = BashCommand.doCmds("sh","cat /proc/sys/vm/swappiness").replaceAll ("\n", "");
 		SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
 		SharedPreferences.Editor prefEditor = settingsA2sd.edit();
 		prefEditor.putString("sdswap", sdswap);
@@ -170,9 +170,9 @@ public class A2sdActivity extends Activity{
 	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	        {
 	                	if (isChecked) {
-	                		BashCommand.doCmds("su","a2sd install\nn\nn");
+	                		BashCommand.doCmds("sh","a2sd install\nn\nn");
 	                	} else {
-	                		BashCommand.doCmds("su","a2sd remove");
+	                		BashCommand.doCmds("sh","a2sd remove");
 	                	}
 	                	rebootConf();
 	                	setConf();
@@ -184,9 +184,9 @@ public class A2sdActivity extends Activity{
 	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	        {
 	        	if (isChecked) {
-	        		BashCommand.doCmds("su","a2sd install\nn\ny");
+	        		BashCommand.doCmds("sh","a2sd install\nn\ny");
                 	} else {
-                		BashCommand.doCmds("su","a2sd nodatasd");
+                		BashCommand.doCmds("sh","a2sd nodatasd");
                 	}
                 	rebootConf();
                 	setConf();
@@ -198,9 +198,9 @@ public class A2sdActivity extends Activity{
 	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	        {
 	        	if (isChecked) {
-	        			BashCommand.doCmds("su","a2sd install\ny\nn");
+	        			BashCommand.doCmds("sh","a2sd install\ny\nn");
                 	} else {
-                		BashCommand.doCmds("su","a2sd nocachesd");
+                		BashCommand.doCmds("sh","a2sd nocachesd");
                 	}
                 	rebootConf();
                 	setConf();
@@ -212,9 +212,9 @@ public class A2sdActivity extends Activity{
 	        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 	        {
 	        	if (isChecked) {
-	        			BashCommand.doCmds("su","a2sd xdata");
+	        			BashCommand.doCmds("sh","a2sd xdata");
                 	} else {
-                		BashCommand.doCmds("su","a2sd noxdata");
+                		BashCommand.doCmds("sh","a2sd noxdata");
                 	}
                 	rebootConf();
                 	setConf();
@@ -228,9 +228,9 @@ public class A2sdActivity extends Activity{
 	        	SharedPreferences settingsA2sd = getSharedPreferences("lpa2sd", Context.MODE_PRIVATE);
 	        	String sw = settingsA2sd.getString("sdswap", "Not Found");
 	        	if (isChecked) {
-	        		BashCommand.doCmds("su","swapon "+sw);
+	        		BashCommand.doCmds("sh","swapon "+sw);
                 	} else {
-                		BashCommand.doCmds("su","swapoff "+sw);
+                		BashCommand.doCmds("sh","swapoff "+sw);
                 	}
                 	writeChanges();
                 	setConf();
@@ -288,7 +288,7 @@ public class A2sdActivity extends Activity{
 	
 	public boolean swapSet(String swap){
 		String swapen="";
-		swapen=BashCommand.doCmds("su","cat /proc/swaps | grep "+swap);
+		swapen=BashCommand.doCmds("sh","cat /proc/swaps | grep "+swap);
 		if (!swapen.equals("")){
 			return true;
 		}
@@ -297,7 +297,7 @@ public class A2sdActivity extends Activity{
 	
 	public String readaHead(){
 		String sdahead="";
-		sdahead = BashCommand.doCmds("su","cat /sys/block/mmcblk0/bdi/read_ahead_kb").replaceAll ("\n", "");
+		sdahead = BashCommand.doCmds("sh","cat /sys/block/mmcblk0/bdi/read_ahead_kb").replaceAll ("\n", "");
 		return sdahead;
 	}
 	

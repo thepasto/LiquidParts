@@ -11,21 +11,21 @@ public abstract class BashCommand {
 	public static String doCmds(String type,String command) {
 		String line;
 		String retline="";
-		OutputStreamWriter osw = null;
+		//System.out.println(type+" - "+command);
+		 //osw = null;
 		 try {
 		       
 		       Process p = Runtime.getRuntime().exec(type);
 		       
-		       osw=new OutputStreamWriter(p.getOutputStream());
+		       OutputStreamWriter osw=new OutputStreamWriter(p.getOutputStream());
 		       osw.write(command+"\n");
-		       osw.flush();
 		       osw.close();
 		       p.waitFor();
 		       BufferedReader in = new BufferedReader(
 		               new InputStreamReader(p.getInputStream()) );
 		       while ((line = in.readLine()) != null) {
 		    	   retline+=line;
-		         System.out.println(line);
+		         //System.out.println(line);
 		       }
 		       in.close();
 		     }
