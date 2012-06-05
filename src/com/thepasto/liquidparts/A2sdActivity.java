@@ -134,6 +134,7 @@ public class A2sdActivity extends Activity{
 		swdc2sd.setChecked(settingsA2sd.getBoolean("dc2sd", false));
 		swxdata.setChecked(settingsA2sd.getBoolean("xdata", false));
 		swswap.setChecked(settingsA2sd.getBoolean("swapen", false));
+		swlowmem.setChecked(settingsA2sd.getBoolean("lowmem", false));
 		etswappi.setText(settingsA2sd.getString("swappiness", "-1"));
 		
 		if(settingsA2sd.getString("sdswap", "Not Found").equals("Not Found")){
@@ -277,7 +278,7 @@ public class A2sdActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				BashCommand.doCmds("su","a2sd formatext\ny\nn");
-				BashCommand.doCmds("su","mount -t ext4 /dev/block/mmcblk0p2 /sd-ext/ && echo x > /sd-ext/.ext4 && umount /sd-ext/");
+				BashCommand.doCmds("su","mount -t ext4 -o rw /dev/block/mmcblk0p2 /sd-ext/ && echo x > /sd-ext/.ext4 && umount /sd-ext/");
 				rebootConf();
 			
 			}
