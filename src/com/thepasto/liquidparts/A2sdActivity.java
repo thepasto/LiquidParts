@@ -277,7 +277,7 @@ public class A2sdActivity extends Activity{
         
 			@Override
 			public void onClick(View v) {
-				BashCommand.doCmds("su","a2sd formatext\ny\nn");
+			BashCommand.doCmds("su","a2sd formatext");
 				BashCommand.doCmds("su","mount -t ext4 -o rw /dev/block/mmcblk0p2 /sd-ext/ && echo x > /sd-ext/.ext4 && umount /sd-ext/");
 				rebootConf();
 			
