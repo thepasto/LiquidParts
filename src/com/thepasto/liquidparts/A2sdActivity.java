@@ -291,7 +291,7 @@ public class A2sdActivity extends Activity{
 	        	if (isChecked) {
 	        		String line = "echo 2048,3072,5120,5632,5888,6400 > /sys/module/lowmemorykiller/parameters/minfree";
 	        		
-	        		BashCommand.doCmds("su",line+" && echo \"echo 2048,3072,5120,5632,5888,6400 > /sys/module/lowmemorykiller/parameters/minfree\" > /data/local/userinit.d/04lowmem && chmod 755 /data/local/userinit.d/04lowmem");
+	        		BashCommand.doCmds("su",line+" && echo \"echo 2048,3072,5120,5632,6250,7000 > /sys/module/lowmemorykiller/parameters/minfree\" > /data/local/userinit.d/04lowmem && chmod 755 /data/local/userinit.d/04lowmem");
                 	} else {
                 		String line = "echo 2048,3072,4096,6144,7168,8192 > /sys/module/lowmemorykiller/parameters/minfree";
                 		BashCommand.doCmds("su",line+" && rm /data/local/userinit.d/04lowmem");
